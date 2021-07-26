@@ -6,5 +6,7 @@ Este repositório contém os exercícios realizados do BootcampSantander sobre P
 
 ## Exercícios realizados
 
-- Comandos executados para criação das tabelas (SISTEMA DE CONTA_CORRENTE);
+- Comandos executados para criação das tabelas (SISTEMA BANCÁRIO);
 - Comandos executados para popular os dados das tabelas;
+- Comandos executados para realizar consultas;
+
