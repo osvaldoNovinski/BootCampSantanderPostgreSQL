@@ -1,0 +1,48 @@
+--VIEW RECURSIVA
+CREATE TABLE IF NOT EXISTS funcionarios (
+	id SERIAL,
+	nome VARCHAR(50),
+	gerente INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY (gerente) REFERENCES funcionarios(id)
+);
+
+INSERT INTO funcionarios (nome, gerente) VALUES ('Ancelmo', null);
+INSERT INTO funcionarios (nome, gerente) VALUES ('Beatriz', 1);
+INSERT INTO funcionarios (nome, gerente) VALUES ('Magno', 1);
+INSERT INTO funcionarios (nome, gerente) VALUES ('Cremilda', 2);
+INSERT INTO funcionarios (nome, gerente) VALUES ('Euclassiano', 3);
+INSERT INTO funcionarios (nome, gerente) VALUES ('Pelé Eterno', 4);
+INSERT INTO funcionarios (nome, gerente) VALUES ('Garrincha', 6);
+
+SELECT id, nome, gerente FROM funcionarios;
+
+SELECT id, nome, gerente FROM funcionarios WHERE gerente IS NULL
+UNION ALL
+SELECT id, nome, gerente FROM funcionarios WHERE id = 999;
+
+CREATE OR REPLACE RECURSIVE VIEW vw_func (id, gerente, funcionario) AS (
+	SELECT id, gerente, nome
+	FROM funcionarios
+	WHERE gerente IS NULL
+	UNION ALL
+	SELECT funcionarios.id, funcionarios.gerente,funcionarios.nome
+	FROM funcionarios
+	JOIN vw_func ON vw_func.id = funcionarios.gerente
+);
+
+--DESAFIO
+CREATE OR REPLACE RECURSIVE VIEW vw_func_2 (id, gerente, nomeFun, gerenteNome) AS (
+	SELECT id, gerente, vw_func.funcionario, vw_func.funcionario as gereNome
+	FROM vw_func	
+	WHERE gerente IS NULL
+	UNION ALL
+	SELECT vw_func.id, vw_func.gerente ,funcionario, vw_func_2.nomeFun 
+	FROM vw_func
+	JOIN vw_func_2 ON vw_func_2.id = vw_func.gerente
+);
+
+SELECT id, gerente, funcionario FROM vw_func;
+--DESAFIO
+SELECT id, nomeFun as funcionario, gerente as gerenteID, gerenteNome FROM vw_func_2;
+

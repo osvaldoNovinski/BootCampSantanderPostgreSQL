@@ -11,4 +11,4 @@ Este repositório contém os exercícios realizados do BootcampSantander sobre P
 - Comandos executados para realizar consultas;
 - Comandos executados para realizar consultas com tabelas relacionadas (JOIN);
 - Comandos executados para realizar consultas nas tabelas utilizando tabelas temporárias( WITH);
-
+- Comandos executados para realizar as VIEWS e VIEWS recursivas;
